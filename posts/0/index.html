@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            铅笔芯小屋
+            
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,92 +32,187 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/index.css">
-<div id="count"></div>
-<div id="header" >
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-title">Penciy</h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
+                <h1 class="header-subtitle"></h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2024-04-19
+                        </span>
+                        
+                            
+                                <span id="/posts/0/" class="leancloud_visitors" data-flag-title="">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/0/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                    
+                </div>
             
         </div>
     </div>
     
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
-    
 </div>
 <div id="container">
     
-        
-            <!-- 首页 -->
-            <div class="articles">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h3 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h3><h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>Tarjan求有向图的强连通分量：</p>
+<pre><code class="java">// Tarjan求强连通分量板子
+// 全局变量
+int time = 1;   // 当前时间戳
+Deque&lt;Integer&gt; stk = new ArrayDeque&lt;&gt;();
+int[] dfn;      // 某节点被dfs访问到的时间
+int[] low;      // 某节点能通过其出边回溯到的最早时间
+boolean[] inStack;  // 节点是否在栈中，用于处理存在自环且除自环外无出边的点
+public List&lt;List&lt;Integer&gt;&gt; tarjan(List&lt;Integer&gt;[] g)&#123;
+    int n = g.length;
+    dfn = new int[n];
+    low = new int[n];
+    inStack = new boolean[n];
+    List&lt;List&lt;Integer&gt;&gt; ret = new ArrayList&lt;&gt;();
+    for(int i = 0;i &lt; n;++i) if(dfn[i] == 0) dfs(g, i, ret);
+    return ret;
+&#125;   
+
+public void dfs(List&lt;Integer&gt;[] g, int cur, List&lt;List&lt;Integer&gt;&gt; ret)&#123;
+    dfn[cur] = time;
+    low[cur] = time;
+    ++time;
+    stk.push(cur);
+    inStack[cur] = true;
+    for(int nxt: g[cur])&#123;
+        if(dfn[nxt] == 0) &#123;
+            dfs(g, nxt, ret);
+            low[cur] = Math.min(low[cur], low[nxt]);
+        &#125;
+        else if(inStack[nxt])&#123;
+            low[cur] = Math.min(low[cur], low[nxt]);
+        &#125;
+    &#125;
+    // 当节点的low与dfn相等，说明它无法回溯到更早的时间点，它就是一个强连通分量的顶点
+    if(low[cur] == dfn[cur])&#123;
+        List&lt;Integer&gt; ls = new ArrayList&lt;&gt;();
+        int top = -1;
+        do&#123;
+            top = stk.pop();
+            ls.add(top);
+            inStack[top] = false;
+        &#125;while(top != cur);
+        ret.add(ls);
+    &#125;
+&#125;
+</code></pre>
+<p>时间复杂度：O(V+E)</p>
+<p>注：Tarjan求强连通分量适用于有向图，无向图的连通分量直接用并查集就行。</p>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-eventual-safe-states/description/">802. 找到最终的安全状态 - 力扣（LeetCode）</a></p>
+<h3 id="割点-割边"><a href="#割点-割边" class="headerlink" title="割点/割边"></a>割点/割边</h3><h4 id="模板-1"><a href="#模板-1" class="headerlink" title="模板"></a>模板</h4><p>适用于无向连通图</p>
+<pre><code class="java">int time = 1;
+int[] dfn;
+int[] low;
+List&lt;List&lt;Integer&gt;&gt; edges = new ArrayList&lt;&gt;();
+List&lt;Integer&gt; points = new ArrayList&lt;&gt;();
+Set&lt;Integer&gt; seenPoint =  new HashSet&lt;&gt;();
+public void Tarjan(List&lt;Integer&gt;[] g)&#123;
+    int n = g.length;
+    dfn = new int[n];
+    low = new int[n];        
+    dfs(g, 0, -1);
+&#125;
+
+public void dfs(List&lt;Integer&gt;[] g, int cur, int fa)&#123;
+    dfn[cur] = time;
+    low[cur] = time;
+    time++;
+    int sonCnt = 0;
+    for(int nxt: g[cur])&#123;
+        if(nxt == fa) continue;
+        if(dfn[nxt] == 0)&#123;
+            sonCnt++;
+            dfs(g, nxt, cur);
+            low[cur] = Math.min(low[cur], low[nxt]);
+            // 割边判据1：low[nxt] &gt; dfn[cur]，则cur-nxt为割边
+            if(low[nxt] &gt; dfn[cur])&#123;
+                List&lt;Integer&gt; edge = new ArrayList&lt;&gt;();
+                edge.add(cur);
+                edge.add(nxt);
+                edges.add(edge);
+            &#125;
+            // 割点判据1：cur非根节点，且存在一个孩子nxt满足low[nxt] &gt;= dfn[cur]
+            if(seenPoint.contains(cur)) continue;
+            if(fa != -1 &amp;&amp; low[nxt] &gt;= dfn[cur])&#123;
+                points.add(cur);
+                seenPoint.add(cur);
+            &#125;
+        &#125;
+        else&#123;
+            low[cur] = Math.min(low[cur], dfn[nxt]);    // 注意这里不要用low[nxt]更新
+        &#125;
+        // 割点判据2：cur为根节点，且存在至少两个子树
+        if(fa == -1 &amp;&amp; sonCnt &gt;= 2) points.add(cur);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/critical-connections-in-a-network/">1192. 查找集群内的关键连接 - 力扣（LeetCode）</a>———-割边</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/">1489. 找到最小生成树里的关键边和伪关键边 - 力扣（LeetCode）</a>———-割边、缩点</p>
+<p>注意本题在缩点后的图中，是可能存在重复边的，因此不能用父节点作为continue的依据，而应该使用来路的那条边作为continue的依据</p>
+
                 
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/0/"></a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2024-04-19
-                            </span>
-                            
-                                
-                                    <span id="/posts/0/" class="leancloud_visitors" data-flag-title="">
-                                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                    </span>
-                                
-                                
-                                    <span>
-                                        <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/0/"></span>
-                                    </span>
-                                
-                            
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/eevee.jpg" alt="Penciy">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>Penciy
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/0/" target="_blank"></a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
                 
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/1243066710/">Hello World</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2024-04-01
-                            </span>
-                            
-                                
-                                    <span id="/posts/1243066710/" class="leancloud_visitors" data-flag-title="Hello World">
-                                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                    </span>
-                                
-                                
-                                    <span>
-                                        <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1243066710/"></span>
-                                    </span>
-                                
-                            
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
                 
+                <div class="article-prev-next">
+                    
+                    
+                        <a href="/posts/1243066710/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1243066710/" title="发布于 2024-04-01 11:21">Hello World</a>
+                    
+                </div>
             </div>
             
-            
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+    
+ 
+        </div>
     
 </div>
     <div id="footer">
@@ -149,7 +244,7 @@
             <div class="menu-list">
                 <ul>
                     
-                        <li class=" active "><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
+                        <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
                     
                         <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
                     
