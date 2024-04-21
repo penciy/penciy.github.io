@@ -57,6 +57,10 @@
                         
                     </p>
                     
+                        
+                            <span class="category-color">算法</span>
+                        
+                    
                     
                         
                             <span class="tag-color">算法</span>
@@ -77,7 +81,7 @@
             <div class="toc"></div>
             <div class="article-body">
                 <h3 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p><strong>强连通</strong>的定义是：有向图 G 强连通是指，G 中任意两个结点连通。<br><strong>强连通分量</strong>（Strongly Connected Components，SCC）的定义是：极大的强连通子图，即彼此两两可达的节点集合。如下图，强连通分量可以表示为[[2, 3, 4, 5], [1], [6, 8, 9], [7]]。</p>
-<p><img src="D:\development\hexo_blog\source\images\tarjanSCC-1713710113008-1.png" alt="img"></p>
+<p><img src="D:\development\hexo_blog\source\image\article\1828842990\tarjanSCC-1713710113008-1.png" alt="img"></p>
 <h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>为每个节点维护两个变量：</p>
 <ul>
 <li><code>dfn</code>：该节点被<code>dfs</code>最初访问到的时间</li>
@@ -102,7 +106,7 @@
 <h3 id="割点-割边"><a href="#割点-割边" class="headerlink" title="割点/割边"></a>割点/割边</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p><strong>割点</strong>：对于一个无向图，如果把一个点删除后这个图的极大连通分量数增加了，那么这个点就是这个图的割点。<br><strong>割边</strong>：对于一个无向图，如果删掉一条边后图中的连通分量数增加了，则称这条边为桥或者割边。</p>
 <h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p>类似强连通分量。<br>割点判据有两条：1.根节点且有至少两个子树；2.非根节点且存在一个儿子nxt满足low[nxt] &gt;= dfn[cur]。<br>割边的判据只有一条：low[nxt] &gt; dfn[cur]，说明cur-nxt这条边是割边。</p>
 <p>注意当发现已经访问过的节点时，需要用dfn[nxt]更新low[cur]，而不是像求解SCC时使用low[nxt]更新。<br>考虑无向图结构如下，从节点1出发，如果使用的是low[nxt]更新，会导致节点5和节点6的low被更新为1，算法会认为节点5和6不需要经过节点2就能回溯到更早的节点，进而认为节点2不是割点。</p>
-<p><img src="D:\development\hexo_blog\source\images\tarjan.svg" alt="img"></p>
+<p><img src="D:\development\hexo_blog\source\image\article\1828842990\tarjan.svg" alt="img"></p>
 <p>也就是说更新low[cur]时不能通过nxt的其它边继续回溯。</p>
 <h4 id="模板-1"><a href="#模板-1" class="headerlink" title="模板"></a>模板</h4><p>适用于无向连通图</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span>[] dfn;</span><br><span class="line"><span class="type">int</span>[] low;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; points = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">Set&lt;Integer&gt; seenPoint =  <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Tarjan</span><span class="params">(List&lt;Integer&gt;[] g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> g.length;</span><br><span class="line">    dfn = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    low = <span class="keyword">new</span> <span class="title class_">int</span>[n];        </span><br><span class="line">    dfs(g, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(List&lt;Integer&gt;[] g, <span class="type">int</span> cur, <span class="type">int</span> fa)</span>&#123;</span><br><span class="line">    dfn[cur] = time;</span><br><span class="line">    low[cur] = time;</span><br><span class="line">    time++;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sonCnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> nxt: g[cur])&#123;</span><br><span class="line">        <span class="keyword">if</span>(nxt == fa) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(dfn[nxt] == <span class="number">0</span>)&#123;</span><br><span class="line">            sonCnt++;</span><br><span class="line">            dfs(g, nxt, cur);</span><br><span class="line">            low[cur] = Math.min(low[cur], low[nxt]);</span><br><span class="line">            <span class="comment">// 割边判据1：low[nxt] &gt; dfn[cur]，则cur-nxt为割边</span></span><br><span class="line">            <span class="keyword">if</span>(low[nxt] &gt; dfn[cur])&#123;</span><br><span class="line">                List&lt;Integer&gt; edge = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                edge.add(cur);</span><br><span class="line">                edge.add(nxt);</span><br><span class="line">                edges.add(edge);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 割点判据1：cur非根节点，且存在一个孩子nxt满足low[nxt] &gt;= dfn[cur]</span></span><br><span class="line">            <span class="keyword">if</span>(seenPoint.contains(cur)) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(fa != -<span class="number">1</span> &amp;&amp; low[nxt] &gt;= dfn[cur])&#123;</span><br><span class="line">                points.add(cur);</span><br><span class="line">                seenPoint.add(cur);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            low[cur] = Math.min(low[cur], dfn[nxt]);    <span class="comment">// 注意这里不要用low[nxt]更新</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 割点判据2：cur为根节点，且存在至少两个子树</span></span><br><span class="line">        <span class="keyword">if</span>(fa == -<span class="number">1</span> &amp;&amp; sonCnt &gt;= <span class="number">2</span>) points.add(cur);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -133,6 +137,13 @@
     </div>
     <div style="clear: both;"></div>
 </div>
+                
+                    <div class="category">
+                        分类：
+                        
+                            <a href="/category/%E7%AE%97%E6%B3%95/">算法</a>
+                        
+                    </div>
                 
                 
                     <div class="tag">

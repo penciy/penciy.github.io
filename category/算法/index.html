@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            二分查找
+            分类 - 算法
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,40 +32,15 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/post.css">
+    <link type="text/css" rel="stylesheet" href="/css/archive.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">二分查找</h1>
+                <h1 class="header-subtitle">分类归档</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text">
-                        <span>
-                            <i class="iconfont icon-time"></i> 发表时间：2024-04-03
-                        </span>
-                        
-                            
-                                <span id="/posts/3907716225/" class="leancloud_visitors" data-flag-title="二分查找">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            
-                                <span>
-                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/3907716225/"></span>
-                                </span>
-                              
-                        
-                    </p>
-                    
-                        
-                            <span class="category-color">算法</span>
-                        
-                    
-                    
-                        
-                            <span class="tag-color">算法</span>
-                        
-                    
+                    <p class="article-info-text Chinese"></p>
+                    <p class="article-info-text English"></p>                  
                 </div>
             
         </div>
@@ -74,105 +49,57 @@
 </div>
 <div id="container">
     
-        <!-- 文章页面 -->
-        <div id="article">
-            <div class="toc"></div>
-            <div class="article-body">
-                <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>可以二分的前提：有序</p>
-<p>时间复杂度：O(log n)</p>
-<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>目前只遇到了两种二分情况，基本可以包括所有二分的情景：</p>
-<ol>
-<li><p>前半段是false，后半段是true，查找最靠左的true</p>
-<p>形如：false  false  false  false  true  true  true</p>
-<p>实例：对于升序数组，查找第一个大于等于target的元素的下标</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(nums[mid] &gt;= target)</span><br><span class="line">    	r = mid - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> l;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>前半段是true，后半段是false，查找最靠右的true</p>
-<p>形如：true  true  true  false  false</p>
-<p>实例：对于降序数组，查找最后一个大于等于target的元素的下标</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(nums[mid] &gt;= target)</span><br><span class="line">    	l = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> r;</span><br></pre></td></tr></table></figure>
-<p>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/solution/">34. 在排序数组中查找元素的第一个和最后一个位置</a></p>
-</li>
-</ol>
-<p>while判断条件始终是小于等于，l和r始终是mid往右/往左一步。需要最靠哪边的true，就返回哪边的指针，即靠左对应<code>return l</code>；靠右对应<code>return r</code>；在不确定返回l还是r时，可以举例子，模拟一下l和r最终的指向。</p>
-<h4 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h4><p>对于求极小值的极大值问题，通常可以转化为在有序数组中求最靠左/最靠右的true的问题，进而可以转化为二分查找问题。</p>
-<p>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/">1760. 袋子里最少数目的球</a></p>
-<p>给你一个整数数组 <code>nums</code> ，其中 <code>nums[i]</code> 表示第 <code>i</code> 个袋子里球的数目。同时给你一个整数 <code>maxOperations</code> 。</p>
-<p>你可以进行如下操作至多 <code>maxOperations</code> 次：</p>
-<ul>
-<li>选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有正整数个球。<ul>
-<li>比方说，一个袋子里有 <code>5</code> 个球，你可以把它们分到两个新袋子里，分别有 <code>1</code> 个和 <code>4</code> 个球，或者分别有 <code>2</code> 个和 <code>3</code> 个球。</li>
-</ul>
-</li>
-</ul>
-<p>你的开销是单个袋子里球数目的 <strong>最大值</strong> ，你想要 <strong>最小化</strong> 开销。</p>
-<p>请你返回进行上述操作后的最小开销。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [9], maxOperations = 2</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">- 将装有 9 个球的袋子分成装有 6 个和 3 个球的袋子。[9] -&gt; [6,3] 。</span><br><span class="line">- 将装有 6 个球的袋子分成装有 3 个和 3 个球的袋子。[6,3] -&gt; [3,3,3] 。</span><br><span class="line">装有最多球的袋子里装有 3 个球，所以开销为 3 并返回 3 。</span><br></pre></td></tr></table></figure>
-<p>分析：随着开销的增大，操作数ops会减小，因此对开销进行二分，找到满足ops &lt;= <code>maxOperations</code>的最小开销，即最靠左的true。可以想象一个数组以开销为索引，其值前半段是false，后半段是true。</p>
-<p>代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minimumSize</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> maxOperations)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">1</span>, r = *<span class="built_in">max_element</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; num: nums)</span><br><span class="line">                sum += (num - <span class="number">1</span>) / mid;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(sum &lt;= maxOperations)</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-                
-                <p class="end">__END__</p>
-            </div>
-            <div class="article-footer">
-                <div class="suffix-box">
-    <div class="suffix-box-left">
-        <img src="/image/sidebar/eevee.jpg" alt="Penciy">
-    </div>
-    <div class="suffix-box-right">
-        <span class="suffix-box-title">文章作者：</span>Penciy
-        <br>
-        <span class="suffix-box-title">文章出处：</span><a href="/posts/3907716225/" target="_blank">二分查找</a>
-        <br>
-        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
-        <br>
-        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
-        <br>
-        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
-        <br>
-    </div>
-    <div style="clear: both;"></div>
-</div>
-                
-                    <div class="category">
-                        分类：
+        
+            <!-- 归档页面、分类归档页面、标签归档页面 -->
+            <div class="articles">
+                <div class="articles-wrap">
+                    <span class="archive-move-on"></span>
+                    <span class="archive-counter">
                         
-                            <a href="/category/%E7%AE%97%E6%B3%95/">算法</a>
+                            当前分类：<span class="category">算法</span>
                         
-                    </div>
-                
-                
-                    <div class="tag">
-                        标签：
-                        
-                            <a href="/tag/%E7%AE%97%E6%B3%95/">算法</a>
-                        
-                    </div>
-                
-                <div class="article-prev-next">
-                    
-                        <a href="/posts/4274956372/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/4274956372/" title="发布于 2024-04-07 09:11">树上倍增+LCA问题</a>
-                        <br>
+                    </span>
                     
                     
-                        <a href="/posts/1243066710/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1243066710/" title="发布于 2024-04-01 11:21">Hello World</a>
+                        
+                            <div class="archive-title">
+                                <h2 class="archive-year">2024</h2>
+                            </div>
+                            
+                           
+                        <div class="article">
+                            <div class="article-header">
+                                <h1 class="article-title"><a href="/posts/1828842990/"><span>Tarjan强连通分量、割点/割边</span></a></h1>
+                                <div class="article-meta">
+                                    <span class="article-time">04-12</span>
+                                </div>
+                            </div>
+                        </div>
+                    
+                           
+                        <div class="article">
+                            <div class="article-header">
+                                <h1 class="article-title"><a href="/posts/4274956372/"><span>树上倍增+LCA问题</span></a></h1>
+                                <div class="article-meta">
+                                    <span class="article-time">04-07</span>
+                                </div>
+                            </div>
+                        </div>
+                    
+                           
+                        <div class="article">
+                            <div class="article-header">
+                                <h1 class="article-title"><a href="/posts/3907716225/"><span>二分查找</span></a></h1>
+                                <div class="article-meta">
+                                    <span class="article-time">04-03</span>
+                                </div>
+                            </div>
+                        </div>
                     
                 </div>
             </div>
             
-    <div class="article-comments">
         
-            <div class="comments-title">
-                评论列表
-            </div>
-        
-        <div class="comments-content"></div>
-    </div>
-    
- 
-        </div>
     
 </div>
     <div id="footer">
