@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            Tarjan强连通分量、割点割边
+            Tarjan强连通分量、割点/割边
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -37,15 +37,15 @@
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">Tarjan强连通分量、割点割边</h1>
+                <h1 class="header-subtitle">Tarjan强连通分量、割点/割边</h1>
                 <div class="header-subinfo">
                     <p class="article-info-text">
                         <span>
-                            <i class="iconfont icon-time"></i> 发表时间：2024-04-19
+                            <i class="iconfont icon-time"></i> 发表时间：2024-04-12
                         </span>
                         
                             
-                                <span id="/posts/1828842990/" class="leancloud_visitors" data-flag-title="Tarjan强连通分量、割点割边">
+                                <span id="/posts/1828842990/" class="leancloud_visitors" data-flag-title="Tarjan强连通分量、割点/割边">
                                     <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
                                 </span>
                             
@@ -57,6 +57,12 @@
                         
                     </p>
                     
+                    
+                        
+                            <span class="tag-color">算法</span>
+                        
+                            <span class="tag-color">图论</span>
+                        
                     
                 </div>
             
@@ -70,13 +76,37 @@
         <div id="article">
             <div class="toc"></div>
             <div class="article-body">
-                <h3 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h3><h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>Tarjan求有向图的强连通分量：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Tarjan求强连通分量板子</span></span><br><span class="line"><span class="comment">// 全局变量</span></span><br><span class="line"><span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> <span class="number">1</span>;   <span class="comment">// 当前时间戳</span></span><br><span class="line">Deque&lt;Integer&gt; stk = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line"><span class="type">int</span>[] dfn;      <span class="comment">// 某节点被dfs访问到的时间</span></span><br><span class="line"><span class="type">int</span>[] low;      <span class="comment">// 某节点能通过其出边回溯到的最早时间</span></span><br><span class="line"><span class="type">boolean</span>[] inStack;  <span class="comment">// 节点是否在栈中，用于处理存在自环且除自环外无出边的点</span></span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">tarjan</span><span class="params">(List&lt;Integer&gt;[] g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> g.length;</span><br><span class="line">    dfn = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    low = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    inStack = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; ret = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; n;++i) <span class="keyword">if</span>(dfn[i] == <span class="number">0</span>) dfs(g, i, ret);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(List&lt;Integer&gt;[] g, <span class="type">int</span> cur, List&lt;List&lt;Integer&gt;&gt; ret)</span>&#123;</span><br><span class="line">    dfn[cur] = time;</span><br><span class="line">    low[cur] = time;</span><br><span class="line">    ++time;</span><br><span class="line">    stk.push(cur);</span><br><span class="line">    inStack[cur] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> nxt: g[cur])&#123;</span><br><span class="line">        <span class="keyword">if</span>(dfn[nxt] == <span class="number">0</span>) &#123;</span><br><span class="line">            dfs(g, nxt, ret);</span><br><span class="line">            low[cur] = Math.min(low[cur], low[nxt]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(inStack[nxt])&#123;</span><br><span class="line">            low[cur] = Math.min(low[cur], low[nxt]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 当节点的low与dfn相等，说明它无法回溯到更早的时间点，它就是一个强连通分量的顶点</span></span><br><span class="line">    <span class="keyword">if</span>(low[cur] == dfn[cur])&#123;</span><br><span class="line">        List&lt;Integer&gt; ls = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            top = stk.pop();</span><br><span class="line">            ls.add(top);</span><br><span class="line">            inStack[top] = <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">while</span>(top != cur);</span><br><span class="line">        ret.add(ls);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <h3 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p><strong>强连通</strong>的定义是：有向图 G 强连通是指，G 中任意两个结点连通。<br><strong>强连通分量</strong>（Strongly Connected Components，SCC）的定义是：极大的强连通子图，即彼此两两可达的节点集合。如下图，强连通分量可以表示为[[2, 3, 4, 5], [1], [6, 8, 9], [7]]。</p>
+<p><img src="D:\development\hexo_blog\Assets\tarjanSCC.png" alt="img"></p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>为每个节点维护两个变量：</p>
+<ul>
+<li><code>dfn</code>：该节点被<code>dfs</code>最初访问到的时间</li>
+<li><code>low</code>：该节点能够通过其出边回溯到的最小时间</li>
+</ul>
+<p>容易得到结论：</p>
+<ul>
+<li>子树节点的<code>dfn</code>一定大于当前节点的<code>dfn</code></li>
+<li>从根节点开始的一条路径上，<code>dfn</code>严格递增，<code>low</code>严格非降</li>
+</ul>
+<p>算法流程：<br>按照深度优先搜索算法搜索的次序对图中所有的结点进行搜索，维护每个结点的 <code>dfn</code> 与 <code>low</code> 变量，且让搜索到的结点入栈。每当找到一个强连通元素，就按照该元素包含结点数目让栈中元素出栈。在搜索过程中，对于结点u和与其相邻的结点v(v不是u的父节点)考虑 3 种情况：</p>
+<ol>
+<li>v未被访问：继续对v进行深度搜索。在回溯过程中，用low[v]更新 low[u]。因为存在从u到v的直接路径，所以v能够回溯到的已经在栈中的结点，u也一定能够回溯到。</li>
+<li>v被访问过，已经在栈中：根据 low 值的定义，用low[v]更新low[u] 。</li>
+<li>v被访问过，已不在栈中：说明v已搜索完毕，其所在连通分量已被处理，所以不用对其做操作。</li>
+</ol>
+<p>一个连通分量有且仅有一个节点的dfn等于low。该节点一定是在深度遍历的过程中，该连通分量中第一个被访问过的节点，因为它的 dfn 和 low 值最小，不会被该连通分量中的其他结点所影响。因此在回溯的过程中如果dfn == low，说明该节点及栈中节点构成一个SCC。<br>注意如果原图并非无向连通图，需要在循环内多次调用tarjan，确保每个点都被访问到。</p>
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Tarjan求强连通分量板子</span></span><br><span class="line"><span class="comment">// 全局变量</span></span><br><span class="line"><span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> <span class="number">1</span>;   <span class="comment">// 当前时间戳</span></span><br><span class="line">Deque&lt;Integer&gt; stk = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line"><span class="type">int</span>[] dfn;      <span class="comment">// 某节点被dfs访问到的时间</span></span><br><span class="line"><span class="type">int</span>[] low;      <span class="comment">// 某节点能通过其出边回溯到的最早时间</span></span><br><span class="line"><span class="type">boolean</span>[] inStack;  <span class="comment">// 节点是否在栈中，用于处理存在自环且除自环外无出边的点</span></span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">tarjan</span><span class="params">(List&lt;Integer&gt;[] g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> g.length;</span><br><span class="line">    dfn = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    low = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    inStack = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; ret = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; n;++i) <span class="keyword">if</span>(dfn[i] == <span class="number">0</span>) dfs(g, i, ret);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(List&lt;Integer&gt;[] g, <span class="type">int</span> cur, List&lt;List&lt;Integer&gt;&gt; ret)</span>&#123;</span><br><span class="line">    dfn[cur] = time;</span><br><span class="line">    low[cur] = time;</span><br><span class="line">    ++time;</span><br><span class="line">    stk.push(cur);</span><br><span class="line">    inStack[cur] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> nxt: g[cur])&#123;</span><br><span class="line">        <span class="keyword">if</span>(dfn[nxt] == <span class="number">0</span>) &#123;</span><br><span class="line">            dfs(g, nxt, ret);</span><br><span class="line">            low[cur] = Math.min(low[cur], low[nxt]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(inStack[nxt])&#123;</span><br><span class="line">            low[cur] = Math.min(low[cur], low[nxt]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 当节点的low与dfn相等，说明它无法回溯到更早的时间点，它就是一个强连通分量的顶点</span></span><br><span class="line">    <span class="keyword">if</span>(low[cur] == dfn[cur])&#123;</span><br><span class="line">        List&lt;Integer&gt; ls = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            top = stk.pop();</span><br><span class="line">            ls.add(top);</span><br><span class="line">            inStack[top] = <span class="literal">false</span>;</span><br><span class="line">        &#125;<span class="keyword">while</span>(top != cur);</span><br><span class="line">        ret.add(ls);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度：O(V+E)</p>
 <p>注：Tarjan求强连通分量适用于有向图，无向图的连通分量直接用并查集就行。</p>
-<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-eventual-safe-states/description/">802. 找到最终的安全状态 - 力扣（LeetCode）</a></p>
-<h3 id="割点-割边"><a href="#割点-割边" class="headerlink" title="割点/割边"></a>割点/割边</h3><h4 id="模板-1"><a href="#模板-1" class="headerlink" title="模板"></a>模板</h4><p>适用于无向连通图</p>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-eventual-safe-states/description/">802. 找到最终的安全状态 - 力扣（LeetCode）</a>（本题Tarjan并非最优解法）</p>
+<h3 id="割点-割边"><a href="#割点-割边" class="headerlink" title="割点/割边"></a>割点/割边</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p><strong>割点</strong>：对于一个无向图，如果把一个点删除后这个图的极大连通分量数增加了，那么这个点就是这个图的割点。<br><strong>割边</strong>：对于一个无向图，如果删掉一条边后图中的连通分量数增加了，则称这条边为桥或者割边。</p>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p>类似强连通分量。<br>割点判据有两条：1.根节点且有至少两个子树；2.非根节点且存在一个儿子nxt满足low[nxt] &gt;= dfn[cur]。<br>割边的判据只有一条：low[nxt] &gt; dfn[cur]，说明cur-nxt这条边是割边。</p>
+<p>注意当发现已经访问过的节点时，需要用dfn[nxt]更新low[cur]，而不是像求解SCC时使用low[nxt]更新。<br>考虑无向图结构如下，从节点1出发，如果使用的是low[nxt]更新，会导致节点5和节点6的low被更新为1，算法会认为节点5和6不需要经过节点2就能回溯到更早的节点，进而认为节点2不是割点。</p>
+<p><img src="D:\development\hexo_blog\Assets\tarjan.svg" alt="img"></p>
+<p>也就是说更新low[cur]时不能通过nxt的其它边继续回溯。</p>
+<h4 id="模板-1"><a href="#模板-1" class="headerlink" title="模板"></a>模板</h4><p>适用于无向连通图</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">time</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span>[] dfn;</span><br><span class="line"><span class="type">int</span>[] low;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; points = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">Set&lt;Integer&gt; seenPoint =  <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Tarjan</span><span class="params">(List&lt;Integer&gt;[] g)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> g.length;</span><br><span class="line">    dfn = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    low = <span class="keyword">new</span> <span class="title class_">int</span>[n];        </span><br><span class="line">    dfs(g, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(List&lt;Integer&gt;[] g, <span class="type">int</span> cur, <span class="type">int</span> fa)</span>&#123;</span><br><span class="line">    dfn[cur] = time;</span><br><span class="line">    low[cur] = time;</span><br><span class="line">    time++;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sonCnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> nxt: g[cur])&#123;</span><br><span class="line">        <span class="keyword">if</span>(nxt == fa) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(dfn[nxt] == <span class="number">0</span>)&#123;</span><br><span class="line">            sonCnt++;</span><br><span class="line">            dfs(g, nxt, cur);</span><br><span class="line">            low[cur] = Math.min(low[cur], low[nxt]);</span><br><span class="line">            <span class="comment">// 割边判据1：low[nxt] &gt; dfn[cur]，则cur-nxt为割边</span></span><br><span class="line">            <span class="keyword">if</span>(low[nxt] &gt; dfn[cur])&#123;</span><br><span class="line">                List&lt;Integer&gt; edge = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                edge.add(cur);</span><br><span class="line">                edge.add(nxt);</span><br><span class="line">                edges.add(edge);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 割点判据1：cur非根节点，且存在一个孩子nxt满足low[nxt] &gt;= dfn[cur]</span></span><br><span class="line">            <span class="keyword">if</span>(seenPoint.contains(cur)) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(fa != -<span class="number">1</span> &amp;&amp; low[nxt] &gt;= dfn[cur])&#123;</span><br><span class="line">                points.add(cur);</span><br><span class="line">                seenPoint.add(cur);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            low[cur] = Math.min(low[cur], dfn[nxt]);    <span class="comment">// 注意这里不要用low[nxt]更新</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 割点判据2：cur为根节点，且存在至少两个子树</span></span><br><span class="line">        <span class="keyword">if</span>(fa == -<span class="number">1</span> &amp;&amp; sonCnt &gt;= <span class="number">2</span>) points.add(cur);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="缩点"><a href="#缩点" class="headerlink" title="缩点"></a>缩点</h4><p>定义：把连通分量看成是一个大点，保留那些不在强连通分量里的边，这样的图就是缩点后的图。<br>缩点后的图保留了所有不在分量里的边，而且对于有向连通图，缩点后的图是一个有向无环图(DAG)，可以进行拓扑排序。</p>
 <h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/critical-connections-in-a-network/">1192. 查找集群内的关键连接 - 力扣（LeetCode）</a>———-割边</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/">1489. 找到最小生成树里的关键边和伪关键边 - 力扣（LeetCode）</a>———-割边、缩点</p>
 <p>注意本题在缩点后的图中，是可能存在重复边的，因此不能用父节点作为continue的依据，而应该使用来路的那条边作为continue的依据</p>
@@ -92,7 +122,7 @@
     <div class="suffix-box-right">
         <span class="suffix-box-title">文章作者：</span>Penciy
         <br>
-        <span class="suffix-box-title">文章出处：</span><a href="/posts/1828842990/" target="_blank">Tarjan强连通分量、割点割边</a>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/1828842990/" target="_blank">Tarjan强连通分量、割点/割边</a>
         <br>
         <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
         <br>
@@ -105,13 +135,22 @@
 </div>
                 
                 
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tag/%E7%AE%97%E6%B3%95/">算法</a>
+                        
+                            <a href="/tag/%E5%9B%BE%E8%AE%BA/">图论</a>
+                        
+                    </div>
+                
                 <div class="article-prev-next">
                     
-                        <a href="/posts/4274956372/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/4274956372/" title="发布于 2024-04-19 10:50">树上倍增+LCA问题</a>
+                        <a href="/posts/0/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/0/" title="发布于 2024-04-21 10:03"></a>
                         <br>
                     
                     
-                        <a href="/posts/1243066710/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1243066710/" title="发布于 2024-04-01 11:21">Hello World</a>
+                        <a href="/posts/4274956372/" class="next-prefix">» </a> 下一篇：    <a href="/posts/4274956372/" title="发布于 2024-04-07 09:11">树上倍增+LCA问题</a>
                     
                 </div>
             </div>
@@ -607,9 +646,9 @@
         },
 
         Search : {
-            applicationID : "010C3EANT8",
-            apiKey        : "c7abab9f11b79102b9aff7fe6d41447d",
-            indexName     : "Notes",
+            applicationID : "AXJ8L5TLSJ",
+            apiKey        : "e546e3a8773de9db349f325a3e2b13dd",
+            indexName     : "penciy-website",
             hits          : {
                 page : 10
             },

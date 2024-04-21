@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/penciy/penciy.github.io/"/>
-  <updated>2024-04-19T14:52:10.674Z</updated>
+  <updated>2024-04-21T14:22:10.982Z</updated>
   <id>https://github.com/penciy/penciy.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>树上倍增+LCA问题</title>
-    <link href="https://github.com/penciy/penciy.github.io/posts/4274956372/"/>
-    <id>https://github.com/penciy/penciy.github.io/posts/4274956372/</id>
-    <published>2024-04-19T14:50:57.392Z</published>
-    <updated>2024-04-19T14:52:10.674Z</updated>
+    <title></title>
+    <link href="https://github.com/penciy/penciy.github.io/posts/0/"/>
+    <id>https://github.com/penciy/penciy.github.io/posts/0/</id>
+    <published>2024-04-21T14:03:40.181Z</published>
+    <updated>2024-04-21T14:22:10.982Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,8 @@
       
         
         
-          &lt;h3 id=&quot;树上倍增&quot;&gt;&lt;a href=&quot;#树上倍增&quot; class=&quot;headerlink&quot; title=&quot;树上倍增&quot;&gt;&lt;/a&gt;树上倍增&lt;/h3&gt;&lt;p&gt;模板：&lt;a
+          &lt;p&gt;title: 二分查找&lt;br&gt;tags: [算法]&lt;br&gt;date: 2024-04-03 19:51:33&lt;/p&gt;
+&lt;h3 id=&quot;二分查找&quot;&gt;&lt;a href=&quot;#二分查找&quot; class=&quot;headerlink&quot;
         
       
     
@@ -39,11 +40,11 @@
   </entry>
   
   <entry>
-    <title>Tarjan强连通分量、割点割边</title>
+    <title>Tarjan强连通分量、割点/割边</title>
     <link href="https://github.com/penciy/penciy.github.io/posts/1828842990/"/>
     <id>https://github.com/penciy/penciy.github.io/posts/1828842990/</id>
-    <published>2024-04-19T14:39:37.868Z</published>
-    <updated>2024-04-19T14:51:11.419Z</updated>
+    <published>2024-04-12T12:19:32.000Z</published>
+    <updated>2024-04-21T14:21:05.592Z</updated>
     
     <summary type="html">
     
@@ -51,12 +52,40 @@
       
         
         
-          &lt;h3 id=&quot;强连通分量&quot;&gt;&lt;a href=&quot;#强连通分量&quot; class=&quot;headerlink&quot; title=&quot;强连通分量&quot;&gt;&lt;/a&gt;强连通分量&lt;/h3&gt;&lt;h4 id=&quot;模板&quot;&gt;&lt;a href=&quot;#模板&quot; class=&quot;headerlink&quot;
+          &lt;h3 id=&quot;强连通分量&quot;&gt;&lt;a href=&quot;#强连通分量&quot; class=&quot;headerlink&quot; title=&quot;强连通分量&quot;&gt;&lt;/a&gt;强连通分量&lt;/h3&gt;&lt;h4 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
+    
+      <category term="算法" scheme="https://github.com/penciy/penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="图论" scheme="https://github.com/penciy/penciy.github.io/tag/%E5%9B%BE%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>树上倍增+LCA问题</title>
+    <link href="https://github.com/penciy/penciy.github.io/posts/4274956372/"/>
+    <id>https://github.com/penciy/penciy.github.io/posts/4274956372/</id>
+    <published>2024-04-07T13:11:24.000Z</published>
+    <updated>2024-04-21T14:20:57.220Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;树上倍增&quot;&gt;&lt;a href=&quot;#树上倍增&quot; class=&quot;headerlink&quot; title=&quot;树上倍增&quot;&gt;&lt;/a&gt;树上倍增&lt;/h3&gt;&lt;p&gt;模板题：&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://github.com/penciy/penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
