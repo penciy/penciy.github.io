@@ -29,7 +29,8 @@
       
         
         
-          &lt;h4 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h4&gt;&lt;p&gt;设模数为m，对于一个整数a，如果存在另一个整数$a^ {-1} (0 &amp;lt; a^ {-1}
+          &lt;h4 id=&quot;定义&quot;&gt;定义&lt;/h4&gt;
+&lt;p&gt;设模数为m，对于一个整数a，如果存在另一个整数&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
         
       
     
@@ -55,7 +56,10 @@
       
         
         
-          &lt;h3 id=&quot;强连通分量&quot;&gt;&lt;a href=&quot;#强连通分量&quot; class=&quot;headerlink&quot; title=&quot;强连通分量&quot;&gt;&lt;/a&gt;强连通分量&lt;/h3&gt;&lt;h4 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;
+          &lt;h3 id=&quot;强连通分量&quot;&gt;强连通分量&lt;/h3&gt;
+&lt;h4 id=&quot;定义&quot;&gt;定义&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;强连通&lt;/strong&gt;的定义是：有向图 G 强连通是指，G 中任意两个结点连通。&lt;br&gt;
+&lt;strong&gt;强连通分量&lt;/strong&gt;（Strongly
         
       
     
@@ -83,7 +87,8 @@
       
         
         
-          &lt;h3 id=&quot;树上倍增&quot;&gt;&lt;a href=&quot;#树上倍增&quot; class=&quot;headerlink&quot; title=&quot;树上倍增&quot;&gt;&lt;/a&gt;树上倍增&lt;/h3&gt;&lt;p&gt;模板题：&lt;a
+          &lt;h3 id=&quot;树上倍增&quot;&gt;树上倍增&lt;/h3&gt;
+&lt;p&gt;模板题：&lt;a href=&quot;https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/&quot;&gt;1483. 树节点的第 K 个祖先
         
       
     
@@ -109,9 +114,10 @@
       
         
         
-          &lt;h3 id=&quot;二分查找&quot;&gt;&lt;a href=&quot;#二分查找&quot; class=&quot;headerlink&quot; title=&quot;二分查找&quot;&gt;&lt;/a&gt;二分查找&lt;/h3&gt;&lt;p&gt;可以二分的前提：有序&lt;/p&gt;
+          &lt;h3 id=&quot;二分查找&quot;&gt;二分查找&lt;/h3&gt;
+&lt;p&gt;可以二分的前提：有序&lt;/p&gt;
 &lt;p&gt;时间复杂度：O(log n)&lt;/p&gt;
-&lt;h4 id=&quot;模板&quot;&gt;&lt;a
+&lt;h4
         
       
     

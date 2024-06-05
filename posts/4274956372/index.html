@@ -78,7 +78,8 @@
         <div id="article">
             <div class="toc"></div>
             <div class="article-body">
-                <h3 id="树上倍增"><a href="#树上倍增" class="headerlink" title="树上倍增"></a>树上倍增</h3><p>模板题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/">1483. 树节点的第 K 个祖先 - 力扣（LeetCode）</a></p>
+                <h3 id="树上倍增">树上倍增</h3>
+<p>模板题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/">1483. 树节点的第 K 个祖先 - 力扣（LeetCode）</a></p>
 <p>如果从某个节点出发，一步步往上跳，单次查询的时间复杂度为O(k)。可以预处理出一个pa数组，pa[i] [j]表示节点i的第2^j个祖先，注意预处理时外层循环为j，内层循环为i。在预处理后，就可以根据k的二进制形式，快速抵达第k个祖先。</p>
 <p><strong>树上倍增求解LCA问题：</strong></p>
 <p>预处理得到pa数组，pa[i] [j]表示节点i的第2^j个祖先;</p>

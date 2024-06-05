@@ -78,16 +78,20 @@
         <div id="article">
             <div class="toc"></div>
             <div class="article-body">
-                <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>可以二分的前提：有序</p>
+                <h3 id="二分查找">二分查找</h3>
+<p>可以二分的前提：有序</p>
 <p>时间复杂度：O(log n)</p>
-<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>目前只遇到了两种二分情况，基本可以包括所有二分的情景：</p>
+<h4 id="模板">模板</h4>
+<p>目前只遇到了两种二分情况，基本可以包括所有二分的情景：</p>
 <ol>
-<li><p>前半段是false，后半段是true，查找最靠左的true</p>
+<li>
+<p>前半段是false，后半段是true，查找最靠左的true</p>
 <p>形如：false  false  false  false  true  true  true</p>
 <p>实例：对于升序数组，查找第一个大于等于target的元素的下标</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(nums[mid] &gt;= target)</span><br><span class="line">    	r = mid - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> l;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>前半段是true，后半段是false，查找最靠右的true</p>
+<li>
+<p>前半段是true，后半段是false，查找最靠右的true</p>
 <p>形如：true  true  true  false  false</p>
 <p>实例：对于降序数组，查找最后一个大于等于target的元素的下标</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(nums[mid] &gt;= target)</span><br><span class="line">    	l = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> r;</span><br></pre></td></tr></table></figure>
@@ -95,12 +99,14 @@
 </li>
 </ol>
 <p>while判断条件始终是小于等于，l和r始终是mid往右/往左一步。需要最靠哪边的true，就返回哪边的指针，即靠左对应<code>return l</code>；靠右对应<code>return r</code>；在不确定返回l还是r时，可以举例子，模拟一下l和r最终的指向。</p>
-<h4 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h4><p>对于求极小值的极大值问题，通常可以转化为在有序数组中求最靠左/最靠右的true的问题，进而可以转化为二分查找问题。</p>
+<h4 id="二分答案">二分答案</h4>
+<p>对于求极小值的极大值问题，通常可以转化为在有序数组中求最靠左/最靠右的true的问题，进而可以转化为二分查找问题。</p>
 <p>例题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/">1760. 袋子里最少数目的球</a></p>
 <p>给你一个整数数组 <code>nums</code> ，其中 <code>nums[i]</code> 表示第 <code>i</code> 个袋子里球的数目。同时给你一个整数 <code>maxOperations</code> 。</p>
 <p>你可以进行如下操作至多 <code>maxOperations</code> 次：</p>
 <ul>
-<li>选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有正整数个球。<ul>
+<li>选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有正整数个球。
+<ul>
 <li>比方说，一个袋子里有 <code>5</code> 个球，你可以把它们分到两个新袋子里，分别有 <code>1</code> 个和 <code>4</code> 个球，或者分别有 <code>2</code> 个和 <code>3</code> 个球。</li>
 </ul>
 </li>
