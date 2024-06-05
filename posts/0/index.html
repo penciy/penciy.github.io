@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            归档
+            
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,15 +32,32 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">归档</h1>
+                <h1 class="header-subtitle"></h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2024-06-05
+                        </span>
+                        
+                            
+                                <span id="/posts/0/" class="leancloud_visitors" data-flag-title="">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/0/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                    
                 </div>
             
         </div>
@@ -49,77 +66,84 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
-                        
-                            目前共计 5 篇日志，继续加油！
-                        
-                    </span>
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>设模数为m，对于一个整数a，如果存在另一个整数$a^{-1}(0 &lt; a^{-1}&lt;m)$，满足$a*a^{-1}\equiv 1(\bmod m)$，则称$a^{-1}$是a的乘法逆元。<br>一个数有逆元的充分必要条件是$gcd(a,m)=1$，此时逆元唯一存在。<br>逆元的含义：模m意义下，1个数a如果有逆元x，那么除以a相当于乘以x。</p>
+<h4 id="如何求乘法逆元"><a href="#如何求乘法逆元" class="headerlink" title="如何求乘法逆元"></a>如何求乘法逆元</h4><h5 id="1-m为质数"><a href="#1-m为质数" class="headerlink" title="1.m为质数"></a>1.m为质数</h5><p>定义式可以转化为$a<em>a^{-1}=km+1$，即$a^{-1}</em>a-k*m=1$，根据<strong>裴蜀定理</strong>，gcd(a, m)=1，必然存在整数$a^{-1}$和k使得上式成立。<br>如果$(a_0^{-1}, k_0)$是一组解，那么$(a_0^{-1}+cm, k_0+ca),c\in Z$都是上式的解。因此必然存在一组解中的$a_0^{-1}$满足$0&lt;a_0^{-1}&lt;m$，即为所求的$a^{-1}$。</p>
+<p>可以使用费马小定理求$a^{-1}$，即<br>$$<br>a^{m-1}\equiv1(\bmod m)<br>$$<br>进一步有<br>$$<br>\begin{aligned}<br>&amp;a^{m-1}a^{-1}\equiv a^{-1}\<br>\Leftrightarrow &amp;a^{m-2}aa^{-1}\equiv a^{-1}(\bmod m)\<br>\Leftrightarrow &amp;a^{m-2}\equiv a^{-1}<br>\end{aligned}<br>$$<br>因此，$a^{-1}$就等于$a^{m-2}$对m取模的结果。计算$a^{m-2}$可以使用快速幂取模，在$O(logm)$时间内完成。</p>
+<h5 id="2-m不为质数"><a href="#2-m不为质数" class="headerlink" title="2.m不为质数"></a>2.m不为质数</h5><p>不管m是否为质数，都可以使用扩展欧几里得计算$a^{-1}$：<br>给定模数m，求解$a^{-1}\cdot x \equiv 1(\bmod m)$可以转化为$a\cdot x - m\cdot y=1$<br>然后可以套用求二元一次方程的方法，用扩展欧几里得算法求逆元，复杂度为$O(logm)$。</p>
+<p>在使用扩展欧几里德算法求解逆元前，首先通过证明扩展欧几里得算法来对该算法有一个简单的理解：<br>引理：存在 x , y 使得 gcd(a,b)=ax+by<br>证明：</p>
+<p>​    　当 b=0 时，gcd(a,b)=a，此时 x=1 , y=0</p>
+<p>​    　当 b!=0 时，</p>
+<p>　　 设 $ax1+by1=gcd(a,b)=gcd(b,a\bmod b)=bx2+(a\bmod b)y2$</p>
+<p>​    　又因 $a\bmod b=a-\frac{a}{b}*b$ </p>
+<p>​    　则    $ax1+by1=bx2+(a-a/b*b)y2$</p>
+<p>　　　　$ax1+by1=bx2+ay2-a/b*by2$</p>
+<p>　　　　$ax1+by1=ay2+bx2-b<em>a/b</em>y2$</p>
+<p>　　　　$ax1+by1=ay2+b(x2-a/b*y2)$</p>
+<p>　　　解得 $x1=y2$ , $y1=x2-a/b*y2$</p>
+<p>　　　因为当 b=0 时存在 x , y 为最后一组解</p>
+<p>　　　而每一组的解可根据后一组得到</p>
+<p>　　　所以第一组的解 x , y 必然存在</p>
+<p>　　　得证</p>
+<p>根据上面的证明，在实现的时候采用递归做法<br>先递归进入下一层，等到到达最后一层即 b=0 时就返回x=1 , y=0<br>再根据$x1=y2 , y1=x2-a/b*y2$ ( x2 与 y2 为下一层的 x 与 y ) 得到当层的解<br>不断算出当层的解并返回，最终返回至第一层，得到原解</p>
+<p>由于gcd(a, m)为1，引理转化为ax+by=1，可以使用扩展欧几里德算法求逆元，过程如下：求exgcd(a, m)—&gt;利用欧几里得算法不断递归直到x=1,y=0—&gt;反向递归求出第一层的x和y，x即为a在模m意义下的的逆元。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">long</span> <span class="title function_">exgcd</span><span class="params">(<span class="type">long</span> a, <span class="type">long</span> b, MyLong x, MyLong y)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>) &#123;</span><br><span class="line">        x.v = <span class="number">1</span>;</span><br><span class="line">        y.v = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">long</span> gcd=exgcd(b, a%b, x, y);</span><br><span class="line">    <span class="type">long</span> <span class="variable">c</span> <span class="operator">=</span> y.v;</span><br><span class="line">    y.v = x.v - (a/b)*y.v;</span><br><span class="line">    x.v = c;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> gcd;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 由于java没有指针，创建一个自定义类方便操作</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyLong</span>&#123;</span><br><span class="line">    <span class="type">long</span> v;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyLong</span><span class="params">()</span> &#123;&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyLong</span><span class="params">(<span class="type">long</span> v)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.v=v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="type">long</span> <span class="variable">a</span> <span class="operator">=</span> sc.nextLong();</span><br><span class="line">    <span class="type">long</span> <span class="variable">m</span> <span class="operator">=</span> sc.nextLong();</span><br><span class="line"></span><br><span class="line">    <span class="type">MyLong</span> <span class="variable">y</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyLong</span>();</span><br><span class="line">    <span class="type">MyLong</span> <span class="variable">x</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyLong</span>();</span><br><span class="line">    <span class="type">long</span> <span class="variable">inv</span> <span class="operator">=</span> (exgcd(a, m, x, y) == <span class="number">1</span> ? (x.v % m + m) % m : -<span class="number">1</span>);	<span class="comment">// 求a关于m的逆元</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="简单总结："><a href="#简单总结：" class="headerlink" title="简单总结："></a>简单总结：</h5><ul>
+<li>乘法是遵循取模定理的，即$(a\times b) \bmod m=((a\bmod m)\times (b\bmod m)) \bmod m$，但是除法不遵循，计算$a/b \bmod m$，不能对a和b分别取模再相除。要用乘法逆元，即$\frac{a}{b} \equiv a\cdot b^{-1}(\bmod m)$，把除法转化为模m乘法，然后就可以把$a/b \bmod m$转化为$a*x \bmod m $。</li>
+<li>一般如果$m$是质数，求$x$可以用费马小定理，$b^{m-2}$就是$x$。求幂的时候需要用快速幂取模。</li>
+<li>无论$m$是否为质数，都可以用扩展欧几里得算法计算逆元。</li>
+</ul>
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>求逆元多出现在组合数学，需要对答案取模的题目中，这种情况下一般需要求某些数关于模数m的逆元。<br>可以用递推的方式预处理出所有数的阶乘以及阶乘的逆元，如下代码所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MX</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e5</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 组合数模板</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span>[] FAC = <span class="keyword">new</span> <span class="title class_">long</span>[MX];     <span class="comment">// FAC[i]表示i!</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span>[] INV_FAC = <span class="keyword">new</span> <span class="title class_">long</span>[MX]; <span class="comment">// INV_FAC[i]表示i!在MOD下的逆元，即1/(i!)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        FAC[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt; MX;++i)&#123;</span><br><span class="line">            FAC[i] = FAC[i-<span class="number">1</span>] * i % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">        INV_FAC[MX-<span class="number">1</span>] = myPow(FAC[MX-<span class="number">1</span>], MOD-<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> MX-<span class="number">1</span>;i &gt;= <span class="number">1</span>;--i)&#123;</span><br><span class="line">            INV_FAC[i-<span class="number">1</span>] = INV_FAC[i] * i % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 组合数公式，n个里面选k个</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">long</span> <span class="title function_">comb</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FAC[n] % MOD * INV_FAC[n-k] % MOD * INV_FAC[k] % MOD;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 快速幂+取模</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">long</span> <span class="title function_">myPow</span><span class="params">(<span class="type">long</span> x, <span class="type">int</span> p)</span>&#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(p &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p % <span class="number">2</span> == <span class="number">1</span>) ret = ret * x % MOD;</span><br><span class="line">            x = x * x % MOD;</span><br><span class="line">            p &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-the-number-of-infection-sequences/description/">2954. 统计感冒序列的数目 - 力扣（LeetCode）</a>(内有组合数学模板)</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-ways-to-build-rooms-in-an-ant-colony/description/">1916. 统计为蚁群构筑房间的不同顺序 - 力扣（LeetCode）</a></p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/eevee.jpg" alt="Penciy">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>Penciy
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/0/" target="_blank"></a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                <div class="article-prev-next">
                     
                     
-                        
-                            <div class="archive-title">
-                                <h2 class="archive-year">2024</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/0/"><span></span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">06-05</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1828842990/"><span>Tarjan强连通分量、割点/割边</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-12</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/4274956372/"><span>树上倍增+LCA问题</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-07</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3907716225/"><span>二分查找</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-03</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1243066710/"><span>Hello World</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-01</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/1828842990/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1828842990/" title="发布于 2024-04-12 08:19">Tarjan强连通分量、割点/割边</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+    
+ 
+        </div>
     
 </div>
     <div id="footer">
@@ -157,7 +181,7 @@
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
-                        <li class=" active "><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
                         <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     
