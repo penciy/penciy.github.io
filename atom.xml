@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://penciy.github.io/"/>
-  <updated>2024-06-05T11:02:59.248Z</updated>
+  <updated>2024-06-05T11:08:06.445Z</updated>
   <id>https://penciy.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://penciy.github.io/posts/0/"/>
-    <id>https://penciy.github.io/posts/0/</id>
-    <published>2024-06-05T11:03:12.849Z</published>
-    <updated>2024-06-05T11:02:59.248Z</updated>
+    <title>二分查找</title>
+    <link href="https://penciy.github.io/posts/3907716225/"/>
+    <id>https://penciy.github.io/posts/3907716225/</id>
+    <published>2024-05-03T07:41:23.000Z</published>
+    <updated>2024-06-05T11:08:06.445Z</updated>
     
     <summary type="html">
     
@@ -35,6 +35,10 @@
     
     </summary>
     
+      <category term="算法" scheme="https://penciy.github.io/category/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="https://penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
