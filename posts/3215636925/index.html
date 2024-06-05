@@ -79,8 +79,16 @@
             <div class="toc"></div>
             <div class="article-body">
                 <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>设模数为m，对于一个整数a，如果存在另一个整数$a^{-1}(0 &lt; a^{-1}&lt;m)$，满足$a*a^{-1}\equiv 1(\bmod m)$，则称$a^{-1}$是a的乘法逆元。<br>一个数有逆元的充分必要条件是$gcd(a,m)=1$，此时逆元唯一存在。<br>逆元的含义：模m意义下，1个数a如果有逆元x，那么除以a相当于乘以x。</p>
-<h4 id="如何求乘法逆元"><a href="#如何求乘法逆元" class="headerlink" title="如何求乘法逆元"></a>如何求乘法逆元</h4><h5 id="1-m为质数"><a href="#1-m为质数" class="headerlink" title="1.m为质数"></a>1.m为质数</h5><p>定义式可以转化为$a<em>a^{-1}=km+1$，即$a^{-1}</em>a-k*m=1$，根据<strong>裴蜀定理</strong>，gcd(a, m)=1，必然存在整数$a^{-1}$和k使得上式成立。<br>如果$(a_0^{-1}, k_0)$是一组解，那么$(a_0^{-1}+cm, k_0+ca),c\in Z$都是上式的解。因此必然存在一组解中的$a_0^{-1}$满足$0&lt;a_0^{-1}&lt;m$，即为所求的$a^{-1}$。</p>
-<p>可以使用费马小定理求$a^{-1}$，即<br>$$<br>a^{m-1}\equiv1(\bmod m)<br>$$<br>进一步有<br>$$<br>\begin{aligned}<br>&amp;a^{m-1}a^{-1}\equiv a^{-1}\<br>\Leftrightarrow &amp;a^{m-2}aa^{-1}\equiv a^{-1}(\bmod m)\<br>\Leftrightarrow &amp;a^{m-2}\equiv a^{-1}<br>\end{aligned}<br>$$<br>因此，$a^{-1}$就等于$a^{m-2}$对m取模的结果。计算$a^{m-2}$可以使用快速幂取模，在$O(logm)$时间内完成。</p>
+<h4 id="如何求乘法逆元"><a href="#如何求乘法逆元" class="headerlink" title="如何求乘法逆元"></a>如何求乘法逆元</h4><h5 id="1-m为质数"><a href="#1-m为质数" class="headerlink" title="1.m为质数"></a>1.m为质数</h5><p>定义式可以转化为$a<em>a^{-1}=km+1$，即$a^{-1}</em>a-k<em>m=1$，根据<em>*裴蜀定理</em></em>，gcd(a, m)=1，必然存在整数$a^{-1}$和k使得上式成立。<br>如果$(a_0^{-1}, k_0)$是一组解，那么$(a_0^{-1}+cm, k_0+ca),c\in Z$都是上式的解。因此必然存在一组解中的$a_0^{-1}$满足$0&lt;a_0^{-1}&lt;m$，即为所求的$a^{-1}$。</p>
+<p>可以使用费马小定理求$a^{-1}$，即</p>
+<script type="math/tex; mode=display">
+a^{m-1}\equiv1(\bmod m)</script><p>进一步有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&a^{m-1}a^{-1}\equiv a^{-1}\\  
+\Leftrightarrow &a^{m-2}aa^{-1}\equiv a^{-1}(\bmod m)\\
+\Leftrightarrow &a^{m-2}\equiv a^{-1}
+\end{aligned}</script><p>因此，$a^{-1}$就等于$a^{m-2}$对m取模的结果。计算$a^{m-2}$可以使用快速幂取模，在$O(logm)$时间内完成。</p>
 <h5 id="2-m不为质数"><a href="#2-m不为质数" class="headerlink" title="2.m不为质数"></a>2.m不为质数</h5><p>不管m是否为质数，都可以使用扩展欧几里得计算$a^{-1}$：<br>给定模数m，求解$a^{-1}\cdot x \equiv 1(\bmod m)$可以转化为$a\cdot x - m\cdot y=1$<br>然后可以套用求二元一次方程的方法，用扩展欧几里得算法求逆元，复杂度为$O(logm)$。</p>
 <p>在使用扩展欧几里德算法求解逆元前，首先通过证明扩展欧几里得算法来对该算法有一个简单的理解：<br>引理：存在 x , y 使得 gcd(a,b)=ax+by<br>证明：</p>
 <p>​    　当 b=0 时，gcd(a,b)=a，此时 x=1 , y=0</p>
