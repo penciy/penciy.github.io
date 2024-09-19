@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://penciy.github.io/"/>
-  <updated>2024-07-07T11:28:54.000Z</updated>
+  <updated>2024-09-19T03:20:36.580Z</updated>
   <id>https://penciy.github.io/</id>
   
   <author>
@@ -17,11 +17,95 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://penciy.github.io/posts/1/"/>
-    <id>https://penciy.github.io/posts/1/</id>
-    <published>2024-09-19T02:50:04.790Z</published>
-    <updated>2024-07-07T11:28:54.000Z</updated>
+    <title>快速幂--递归与迭代、数值与矩阵</title>
+    <link href="https://penciy.github.io/posts/4232312342/"/>
+    <id>https://penciy.github.io/posts/4232312342/</id>
+    <published>2024-07-22T07:01:24.000Z</published>
+    <updated>2024-09-19T03:20:36.580Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;快速幂&quot;&gt;快速幂&lt;/h3&gt;
+&lt;h4 id=&quot;递归求解&quot;&gt;递归求解&lt;/h4&gt;
+&lt;p&gt;快速幂实际是分治的思想，把大的次幂一步步除以二。例如求解&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
+        
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="https://penciy.github.io/category/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="https://penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前缀函数-KMP-Z函数</title>
+    <link href="https://penciy.github.io/posts/321944572/"/>
+    <id>https://penciy.github.io/posts/321944572/</id>
+    <published>2024-06-30T11:55:17.000Z</published>
+    <updated>2024-09-19T03:19:36.133Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前缀函数&quot;&gt;前缀函数&lt;/h3&gt;
+&lt;h4 id=&quot;真-前缀-真-后缀&quot;&gt;(真)前缀/(真)后缀&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;前缀&lt;/strong&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
+        
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="https://penciy.github.io/category/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="https://penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>差分、二维差分、树上差分</title>
+    <link href="https://penciy.github.io/posts/11231445/"/>
+    <id>https://penciy.github.io/posts/11231445/</id>
+    <published>2024-06-14T10:05:24.000Z</published>
+    <updated>2024-09-19T03:20:06.306Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;差分&quot;&gt;差分&lt;/h4&gt;
+&lt;h5 id=&quot;概念&quot;&gt;概念&lt;/h5&gt;
+&lt;p&gt;对于一个数组arr，如果要将长为m的区间内的所有元素增加
+        
+      
+    
+    </summary>
+    
+      <category term="算法" scheme="https://penciy.github.io/category/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="https://penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前缀和</title>
+    <link href="https://penciy.github.io/posts/qian_zhui_he/"/>
+    <id>https://penciy.github.io/posts/qian_zhui_he/</id>
+    <published>2024-06-05T07:25:11.000Z</published>
+    <updated>2024-09-19T03:19:02.565Z</updated>
     
     <summary type="html">
     
@@ -39,63 +123,19 @@
     
     </summary>
     
+      <category term="算法" scheme="https://penciy.github.io/category/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="https://penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://penciy.github.io/posts/3/"/>
-    <id>https://penciy.github.io/posts/3/</id>
-    <published>2024-09-19T02:50:04.789Z</published>
-    <updated>2024-08-08T14:23:16.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;快速幂&quot;&gt;快速幂&lt;/h3&gt;
-&lt;h4 id=&quot;递归求解&quot;&gt;递归求解&lt;/h4&gt;
-&lt;p&gt;快速幂实际是分治的思想，把大的次幂一步步除以二。例如求解&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://penciy.github.io/posts/4/"/>
-    <id>https://penciy.github.io/posts/4/</id>
-    <published>2024-09-19T02:50:04.787Z</published>
-    <updated>2024-07-06T09:28:54.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h4 id=&quot;差分&quot;&gt;差分&lt;/h4&gt;
-&lt;h5 id=&quot;概念&quot;&gt;概念&lt;/h5&gt;
-&lt;p&gt;对于一个数组arr，如果要将长为m的区间内的所有元素增加
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://penciy.github.io/posts/2/"/>
-    <id>https://penciy.github.io/posts/2/</id>
-    <published>2024-09-19T02:50:04.786Z</published>
-    <updated>2024-07-10T08:22:30.000Z</updated>
+    <title>线段树</title>
+    <link href="https://penciy.github.io/posts/4274944572/"/>
+    <id>https://penciy.github.io/posts/4274944572/</id>
+    <published>2024-05-27T13:11:24.000Z</published>
+    <updated>2024-09-19T03:17:13.208Z</updated>
     
     <summary type="html">
     
@@ -110,30 +150,10 @@
     
     </summary>
     
+      <category term="算法" scheme="https://penciy.github.io/category/%E7%AE%97%E6%B3%95/"/>
     
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://penciy.github.io/posts/0/"/>
-    <id>https://penciy.github.io/posts/0/</id>
-    <published>2024-09-19T02:45:44.697Z</published>
-    <updated>2024-09-19T02:46:37.081Z</updated>
     
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;前缀函数&quot;&gt;前缀函数&lt;/h3&gt;
-&lt;h4 id=&quot;真-前缀-真-后缀&quot;&gt;(真)前缀/(真)后缀&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt;前缀&lt;/strong&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
-        
-      
-    
-    </summary>
-    
+      <category term="算法" scheme="https://penciy.github.io/tag/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
