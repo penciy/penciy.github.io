@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://penciy.github.io/"/>
-  <updated>2024-06-05T11:44:24.035Z</updated>
+  <updated>2024-07-07T11:28:54.000Z</updated>
   <id>https://penciy.github.io/</id>
   
   <author>
@@ -15,6 +15,127 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://penciy.github.io/posts/1/"/>
+    <id>https://penciy.github.io/posts/1/</id>
+    <published>2024-09-19T02:50:04.790Z</published>
+    <updated>2024-07-07T11:28:54.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前缀和&quot;&gt;前缀和&lt;/h3&gt;
+&lt;h4 id=&quot;定义&quot;&gt;定义&lt;/h4&gt;
+&lt;p&gt;前缀和可以简单理解为「数列的前 n 项的和」，可以O(1)地查询区间和，通常在数组不发生更新的情况下使用。&lt;/p&gt;
+&lt;h4 id=&quot;模板&quot;&gt;模板&lt;/h4&gt;
+&lt;figure
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://penciy.github.io/posts/3/"/>
+    <id>https://penciy.github.io/posts/3/</id>
+    <published>2024-09-19T02:50:04.789Z</published>
+    <updated>2024-08-08T14:23:16.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;快速幂&quot;&gt;快速幂&lt;/h3&gt;
+&lt;h4 id=&quot;递归求解&quot;&gt;递归求解&lt;/h4&gt;
+&lt;p&gt;快速幂实际是分治的思想，把大的次幂一步步除以二。例如求解&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://penciy.github.io/posts/4/"/>
+    <id>https://penciy.github.io/posts/4/</id>
+    <published>2024-09-19T02:50:04.787Z</published>
+    <updated>2024-07-06T09:28:54.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;差分&quot;&gt;差分&lt;/h4&gt;
+&lt;h5 id=&quot;概念&quot;&gt;概念&lt;/h5&gt;
+&lt;p&gt;对于一个数组arr，如果要将长为m的区间内的所有元素增加
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://penciy.github.io/posts/2/"/>
+    <id>https://penciy.github.io/posts/2/</id>
+    <published>2024-09-19T02:50:04.786Z</published>
+    <updated>2024-07-10T08:22:30.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;线段树-数组实现&quot;&gt;线段树（数组实现）&lt;/h4&gt;
+&lt;h5
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://penciy.github.io/posts/0/"/>
+    <id>https://penciy.github.io/posts/0/</id>
+    <published>2024-09-19T02:45:44.697Z</published>
+    <updated>2024-09-19T02:46:37.081Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前缀函数&quot;&gt;前缀函数&lt;/h3&gt;
+&lt;h4 id=&quot;真-前缀-真-后缀&quot;&gt;(真)前缀/(真)后缀&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;前缀&lt;/strong&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>乘法逆元</title>
@@ -75,11 +196,11 @@
   </entry>
   
   <entry>
-    <title>树上倍增+LCA问题</title>
+    <title>LCA问题--树上倍增与Tarjan</title>
     <link href="https://penciy.github.io/posts/4274956372/"/>
     <id>https://penciy.github.io/posts/4274956372/</id>
     <published>2024-04-07T13:11:24.000Z</published>
-    <updated>2024-04-21T14:45:36.676Z</updated>
+    <updated>2024-09-19T03:07:29.833Z</updated>
     
     <summary type="html">
     
@@ -88,7 +209,7 @@
         
         
           &lt;h3 id=&quot;树上倍增&quot;&gt;树上倍增&lt;/h3&gt;
-&lt;p&gt;模板题：&lt;a href=&quot;https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/&quot;&gt;1483. 树节点的第 K 个祖先
+&lt;p&gt;模板：&lt;a href=&quot;https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/&quot;&gt;1483. 树节点的第 K 个祖先 -
         
       
     

@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            树上倍增+LCA问题
+            LCA问题--树上倍增与Tarjan
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -37,7 +37,7 @@
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">树上倍增+LCA问题</h1>
+                <h1 class="header-subtitle">LCA问题--树上倍增与Tarjan</h1>
                 <div class="header-subinfo">
                     <p class="article-info-text">
                         <span>
@@ -45,7 +45,7 @@
                         </span>
                         
                             
-                                <span id="/posts/4274956372/" class="leancloud_visitors" data-flag-title="树上倍增+LCA问题">
+                                <span id="/posts/4274956372/" class="leancloud_visitors" data-flag-title="LCA问题--树上倍增与Tarjan">
                                     <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
                                 </span>
                             
@@ -79,9 +79,9 @@
             <div class="toc"></div>
             <div class="article-body">
                 <h3 id="树上倍增">树上倍增</h3>
-<p>模板题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/">1483. 树节点的第 K 个祖先 - 力扣（LeetCode）</a></p>
-<p>如果从某个节点出发，一步步往上跳，单次查询的时间复杂度为O(k)。可以预处理出一个pa数组，pa[i] [j]表示节点i的第2^j个祖先，注意预处理时外层循环为j，内层循环为i。在预处理后，就可以根据k的二进制形式，快速抵达第k个祖先。</p>
-<p><strong>树上倍增求解LCA问题：</strong></p>
+<p>模板：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/submissions/487128849/">1483. 树节点的第 K 个祖先 - 力扣（LeetCode）</a></p>
+<p>pa[i] [j]表示节点i的第2^j个祖先，时刻牢记外层循环为j，内层循环为i。</p>
+<p><strong>LCA问题：</strong></p>
 <p>预处理得到pa数组，pa[i] [j]表示节点i的第2^j个祖先;</p>
 <p>求解x和y的最近公共祖先时，首先较深的节点(假设为y)转为与x相同的深度上，即y = getKthAncestor(depth[y] - depth[x])，如果此时x == y，那么x即为结果。</p>
 <p>否则二者同步向上找，从节点数n的最高位开始遍历：</p>
@@ -94,6 +94,12 @@
 <p>时间复杂度：初始化O(NlogN), getLCA单次执行O(logN)</p>
 <p>空间复杂度:O(NlogN)</p>
 <p>题目：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-edge-weight-equilibrium-queries-in-a-tree/description/?envType=daily-question&amp;envId=2024-01-26">2846. 边权重均等查询 - 力扣（LeetCode）</a></p>
+<h3 id="tarjan">Tarjan</h3>
+<p>基于树上倍增的算法求LCA可以做到在线查询，但单次get的时间复杂度是O(logN)的。Tarjan算法可以线性复杂度、<strong>离线</strong>地求LCA，也就是说，需要一次性传入所有查询。<br>
+与求强连通分量、割点割边时不同，此时的Tarjan不需要保存访问到某个节点的时间戳，只需要用一个color数组表示该节点的递归过程即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeAncester</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] color, root, ret;</span><br><span class="line">    List&lt;Integer&gt;[] g;</span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt;[] qs;</span><br><span class="line"></span><br><span class="line">    TreeAncester(<span class="type">int</span> n, <span class="type">int</span>[][] edges)&#123;</span><br><span class="line">        <span class="built_in">this</span>.g = <span class="keyword">new</span> <span class="title class_">List</span>[n];   <span class="comment">// 建图</span></span><br><span class="line">        <span class="built_in">this</span>.qs = <span class="keyword">new</span> <span class="title class_">List</span>[n];  <span class="comment">// 保存所有查询，包括其在查询数组中的下标</span></span><br><span class="line">        <span class="built_in">this</span>.root = <span class="keyword">new</span> <span class="title class_">int</span>[n]; <span class="comment">// 并查集的簇头节点</span></span><br><span class="line">        <span class="built_in">this</span>.color = <span class="keyword">new</span> <span class="title class_">int</span>[n];    <span class="comment">// Tarjan过程中的染色数组</span></span><br><span class="line">        Arrays.setAll(g, k-&gt;<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        Arrays.setAll(qs, k-&gt;<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt; n;++i) root[i] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span>[] edge: edges) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> edge[<span class="number">0</span>], v = edge[<span class="number">1</span>];</span><br><span class="line">            g[u].add(v);</span><br><span class="line">            g[v].add(u);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Tarjan</span><span class="params">(<span class="type">int</span> cur, <span class="type">int</span> fa)</span>&#123;</span><br><span class="line">        color[cur] = <span class="number">1</span>; <span class="comment">// 正在递归</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> nxt: g[cur])&#123;</span><br><span class="line">            <span class="keyword">if</span>(color[nxt] != <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// 这两句不能调换顺序，否则所有lca都会变成tarjan的入口节点</span></span><br><span class="line">            Tarjan(nxt, cur);</span><br><span class="line">            root[nxt] = cur;    <span class="comment">// 相当于把 nxt 的子树节点全部 merge 到 cur</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span>[] q: qs[cur])&#123;</span><br><span class="line">            <span class="comment">// color[y] == 2 意味着 y 所在子树已经遍历完</span></span><br><span class="line">            <span class="comment">// 也就意味着 y 已经 merge 到它和 x 的 lca 上了</span></span><br><span class="line">            <span class="comment">// 此时 find(y) 就是 x 和 y 的 lca</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">node</span> <span class="operator">=</span> q[<span class="number">0</span>], idx = q[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(node == cur || color[node] == <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">lca</span> <span class="operator">=</span> find(node);</span><br><span class="line">                ret[idx] = lca;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        color[cur] = <span class="number">2</span>; <span class="comment">// 递归结束</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 并查集查找簇头</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> root[x] == x ? x : (root[x] = find(root[x]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 离线传入所有的查询，返回结果</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] getLCAs(<span class="type">int</span>[][] querys)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> querys.length;</span><br><span class="line">        <span class="built_in">this</span>.ret = <span class="keyword">new</span> <span class="title class_">int</span>[m];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; m;++i)&#123;</span><br><span class="line">            <span class="type">int</span>[] query = querys[i];</span><br><span class="line">            <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> query[<span class="number">0</span>], v = query[<span class="number">1</span>];</span><br><span class="line">            qs[u].add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;v, i&#125;);</span><br><span class="line">            <span class="keyword">if</span>(u != v) qs[v].add(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;u, i&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        Tarjan(<span class="number">0</span>, -<span class="number">1</span>);  <span class="comment">// 从根节点开始Tarjan</span></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>复杂度O(n+mα)，其中α为反阿克曼函数，可以认为是O(1)</p>
+<p>题目：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimize-the-total-price-of-the-trips/description/">2646. 最小化旅行的价格总和 - 力扣（LeetCode）</a></p>
 
                 
                 <p class="end">__END__</p>
@@ -106,7 +112,7 @@
     <div class="suffix-box-right">
         <span class="suffix-box-title">文章作者：</span>Penciy
         <br>
-        <span class="suffix-box-title">文章出处：</span><a href="/posts/4274956372/" target="_blank">树上倍增+LCA问题</a>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/4274956372/" target="_blank">LCA问题--树上倍增与Tarjan</a>
         <br>
         <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
         <br>
