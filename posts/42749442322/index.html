@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            归档
+            logTrick
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,15 +32,40 @@
 <meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">归档</h1>
+                <h1 class="header-subtitle">logTrick</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2024-07-27
+                        </span>
+                        
+                            
+                                <span id="/posts/42749442322/" class="leancloud_visitors" data-flag-title="logTrick">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/42749442322/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                        
+                            <span class="category-color">算法</span>
+                        
+                    
+                    
+                        
+                            <span class="tag-color">算法</span>
+                        
+                    
                 </div>
             
         </div>
@@ -49,67 +74,99 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h4 id="题目">题目</h4>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-subarray-with-bitwise-or-closest-to-k/description/">3171. 找到按位或最接近 K 的子数组 - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/shortest-subarray-with-or-at-least-k-ii/description/">3097. 或值至少为 K 的最短子数组 II - 力扣（LeetCode）</a></p>
+<h4 id="方法">方法</h4>
+<p>logTrick的核心思路即对于元素U，进行或操作/与操作的其中一种，最多只能增大/减小logU次。</p>
+<p>遇到涉及子数组或运算/与运算的题目时，可以考虑采用logTrick思想进行优化。步骤如下：</p>
+<ol>
+<li>
+<p>定义数组nums和数组ops，其中nums为原始输入，当前遍历到的数组下标为ptr，则ops[i]表示nums[i:ptr-1]这段区间的所有元素的位运算结果；</p>
+</li>
+<li>
+<p>容易发现对于或运算，ops数组中的右侧元素为左侧元素的子集；对于与运算，ops数组中左侧元素为右侧元素的子集；</p>
+</li>
+<li>
+<p>在对当前元素nums[ptr]操作时，可以从ptr-1开始倒序枚举下标j：</p>
+<ul>
+<li>对于或运算，当发现nums[ptr]是ops[j]的子集时，说明nums[ptr]也是ops[:j-1]的子集；</li>
+<li>对于与运算，当发现ops[j]是nums[ptr]的子集时，说明ops[:j-1]也都是nums[ptr]的子集；</li>
+</ul>
+<p>继续枚举并不会导致ops[j]的变化，因此可以停止枚举；</p>
+</li>
+<li>
+<p>由于ops数组的每个元素最多只会增大/减小logU次，因此总的时间复杂度为O(nlogn)</p>
+</li>
+</ol>
+<p>实际情况中，可以原地维护ops数组，进一步优化空间。</p>
+<h4 id="代码">代码</h4>
+<p>或操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.length;</span><br><span class="line"><span class="type">int</span>[] ors = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; n;++i)&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> nums[i];</span><br><span class="line">    ors[i] = nums[i];</span><br><span class="line">    <span class="comment">// 得到了一个长度为1的子数组的或运算值ors[i]</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i-<span class="number">1</span>;j &gt;= <span class="number">0</span> &amp;&amp; (ors[j] | num) != ors[j];--j)&#123;</span><br><span class="line">        ors[j] |= num;</span><br><span class="line">        <span class="comment">// 得到了一个长度大于1的子数组的或运算值ors[j]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或操作（原地修改）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> nums[i];</span><br><span class="line">    <span class="comment">// 得到了一个长度为1的子数组的或运算值 nums[i]</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; (nums[j] | x) != nums[j]; j--) &#123;</span><br><span class="line">        nums[j] |= x;</span><br><span class="line">        <span class="comment">// 得到了一个长度大于1的子数组的或运算值nums[j]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/eevee.jpg" alt="Penciy">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>Penciy
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/42749442322/" target="_blank">logTrick</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                    <div class="category">
+                        分类：
                         
-                            目前共计 11 篇日志，继续加油！
+                            <a href="/category/%E7%AE%97%E6%B3%95/">算法</a>
                         
-                    </span>
-                    
-                    
+                    </div>
+                
+                
+                    <div class="tag">
+                        标签：
                         
-                            <div class="archive-title">
-                                <h2 class="archive-year">2024</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1828842990/"><span>Tarjan强连通分量、割点/割边</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-12</span>
-                                </div>
-                            </div>
-                        </div>
+                            <a href="/tag/%E7%AE%97%E6%B3%95/">算法</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
                     
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/4274956372/"><span>LCA问题--树上倍增与Tarjan</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-07</span>
-                                </div>
-                            </div>
-                        </div>
                     
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3907716225/"><span>二分查找</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-03</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1243066710/"><span>Hello World</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-01</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/4232312342/" class="next-prefix">» </a> 下一篇：    <a href="/posts/4232312342/" title="发布于 2024-07-22 03:01">快速幂--递归与迭代、数值与矩阵</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+    
+ 
+        </div>
     
 </div>
     <div id="footer">
@@ -147,7 +204,7 @@
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
-                        <li class=" active "><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
                         <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     
