@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://penciy.github.io/"/>
-  <updated>2025-02-18T13:00:38.863Z</updated>
+  <updated>2025-02-18T13:28:49.055Z</updated>
   <id>https://penciy.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>高版本JDK无法通过反射访问JDK内部类的解决方案</title>
+    <link href="https://penciy.github.io/posts/12368761/"/>
+    <id>https://penciy.github.io/posts/12368761/</id>
+    <published>2024-08-11T09:25:15.000Z</published>
+    <updated>2025-02-18T13:28:49.055Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;JDK16之后限制了反射方式对于JDK内部类的访问，因此在使用高版本JDK运行较低版本的JDK时，某些依赖由于会发生错误。&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+        
+      
+    
+    </summary>
+    
+      <category term="问题记录" scheme="https://penciy.github.io/category/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="问题记录" scheme="https://penciy.github.io/tag/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>logTrick</title>

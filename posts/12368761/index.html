@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            归档
+            高版本JDK无法通过反射访问JDK内部类的解决方案
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,15 +32,40 @@
 <meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">归档</h1>
+                <h1 class="header-subtitle">高版本JDK无法通过反射访问JDK内部类的解决方案</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2024-08-11
+                        </span>
+                        
+                            
+                                <span id="/posts/12368761/" class="leancloud_visitors" data-flag-title="高版本JDK无法通过反射访问JDK内部类的解决方案">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/12368761/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                        
+                            <span class="category-color">问题记录</span>
+                        
+                    
+                    
+                        
+                            <span class="tag-color">问题记录</span>
+                        
+                    
                 </div>
             
         </div>
@@ -49,55 +74,73 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <p>JDK16之后限制了反射方式对于JDK内部类的访问，因此在使用高版本JDK运行较低版本的JDK时，某些依赖由于会发生错误。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleClass</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getFoo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> foo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="comment">// 反射访问和修改非JDK内部类SimpleClass</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReflectSimpleClass</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">changeFoo</span><span class="params">(SimpleClass simpleClass)</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">Field</span> <span class="variable">fooField</span> <span class="operator">=</span> SimpleClass.class.getDeclaredField(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">                fooField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">                fooField.set(simpleClass, <span class="string">&quot;bar&quot;</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NoSuchFieldException | IllegalAccessException e) &#123;</span><br><span class="line">                System.out.println(e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 反射访问和修改JDK内部类ArrayList</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">ReflectInternalClass</span> &#123;</span><br><span class="line">        <span class="keyword">private</span>&lt;T&gt; <span class="keyword">void</span> <span class="title function_">changeSize</span><span class="params">(ArrayList&lt;T&gt; arrayList)</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="type">Field</span> <span class="variable">sizeField</span> <span class="operator">=</span> ArrayList.class.getDeclaredField(<span class="string">&quot;size&quot;</span>);</span><br><span class="line">                sizeField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">                sizeField.set(arrayList, <span class="number">114514</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NoSuchFieldException | IllegalAccessException e) &#123;</span><br><span class="line">                System.out.println(e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 分别测试对JDK内部类和非JDK内部类的反射访问和修改，从JDK16开始，修改JDK内部类的属性则会报错</span></span><br><span class="line">        <span class="comment">// 测试结果：若JDK版本是8，可以修改JDK内部类的属性；若JDK版本是17，则不行。</span></span><br><span class="line">        <span class="comment">// 修改运行时的JDK版本的方法：Main-&gt;Edit Configuration-&gt;Build and Run</span></span><br><span class="line">        <span class="type">SimpleClass</span> <span class="variable">simpleClass</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleClass</span>();</span><br><span class="line">        System.out.println(simpleClass.getFoo());</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ReflectSimpleClass</span>().changeFoo(simpleClass);</span><br><span class="line">        <span class="comment">// 预期输出：bar</span></span><br><span class="line">        System.out.println(simpleClass.getFoo());</span><br><span class="line">        <span class="comment">// 测试对JDK内部类的反射访问和修改</span></span><br><span class="line">        ArrayList&lt;Integer&gt; arrayList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">        System.out.println(arrayList.size());</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ReflectInternalClass</span>().changeSize(arrayList);</span><br><span class="line">        <span class="comment">// 预期输出：114514</span></span><br><span class="line">        System.out.println(arrayList.size());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<p>通过添加 JVM 参数来开放模块对 cglib 所需方法的访问权限。具体来说，可以在Idea中的Edit Configuration-&gt;VM options中添加以下参数：</p>
+<p><code>--add-opens java.base/java.lang=ALL-UNNAMED</code></p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/eevee.jpg" alt="Penciy">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>Penciy
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/12368761/" target="_blank">高版本JDK无法通过反射访问JDK内部类的解决方案</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                    <div class="category">
+                        分类：
                         
-                            目前共计 12 篇日志，继续加油！
+                            <a href="/category/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a>
                         
-                    </span>
+                    </div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tag/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
                     
                     
-                        
-                            <div class="archive-title">
-                                <h2 class="archive-year">2024</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3907716225/"><span>二分查找</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-03</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1243066710/"><span>Hello World</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">04-01</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/42749442322/" class="next-prefix">» </a> 下一篇：    <a href="/posts/42749442322/" title="发布于 2024-07-27 09:11">logTrick</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
-    <div class="pagination-bottom">
-        <div class="pagination">
-            
-                <a class="extend prev" rel="prev" href="/archive/2024/">上一页</a><a class="page-number" href="/archive/2024/">1</a><span class="page-number current">2</span>
-            
-        </div>
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
     </div>
-
+    
+ 
+        </div>
     
 </div>
     <div id="footer">
@@ -135,7 +178,7 @@
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
-                        <li class=" active "><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
                         <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     
